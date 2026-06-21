@@ -1,43 +1,31 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Space_Grotesk, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 
-const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const spaceGrotesk = Space_Grotesk({
+  variable: '--font-display',
+  subsets: ['latin'],
+})
+const jetbrainsMono = JetBrains_Mono({
+  variable: '--font-mono-glitch',
   subsets: ['latin'],
 })
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'GLITCHSTUDIO // turn your photos into corrupted art',
+  description:
+    'GlitchStudio takes your boring photos and runs them through the machine — chromatic aberration, datamosh, CRT decay, and Y2K corruption, printed on real archival paper.',
   generator: 'v0.app',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: [{ url: '/icon.png', type: 'image/png' }],
   },
 }
 
 export const viewport: Viewport = {
-  colorScheme: 'light dark',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
+  colorScheme: 'dark',
+  themeColor: '#0a0d10',
+  userScalable: true,
 }
 
 export default function RootLayout({
@@ -46,7 +34,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang="en"
+      className={`dark ${spaceGrotesk.variable} ${jetbrainsMono.variable} bg-background`}
+    >
       <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
