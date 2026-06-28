@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 const PIECES = [
   { src: '/gallery/glitch-portrait.png', title: 'SUBJECT_01.raw', vibe: 'CHROMATIC' },
   { src: '/gallery/glitch-city.png', title: 'NIGHT_GRID.raw', vibe: 'DATAMOSH' },
@@ -26,11 +28,14 @@ export function Gallery() {
               style={{ rotate: `${i % 2 === 0 ? '-1.2' : '1.2'}deg` }}
             >
               <div className="aspect-[4/5] overflow-hidden">
-                <img
-                  src={piece.src || '/placeholder.svg'}
+                <Image
+                  src={piece.src}
                   alt={`Glitch art print titled ${piece.title}`}
+                  width={300}
+                  height={375}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 group-hover:[filter:hue-rotate(20deg)_saturate(1.4)]"
-                  crossOrigin="anonymous"
+                  quality={75}
+                  priority={i < 2}
                 />
               </div>
               <figcaption className="flex items-center justify-between border-t border-border p-2.5 font-mono text-[10px] tracking-widest">

@@ -34,8 +34,14 @@ export async function createOrder(
   if (!pkg) return { ok: false, error: 'Unknown package selected.' }
 
   const email = input.email.trim().toLowerCase()
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  // Stricter email validation
+  if (!/^[^\s@]{1,64}@[^\s@]{1,255}\.[^\s@]{2,}$/.test(email)) {
     return { ok: false, error: 'Enter a valid email address.' }
+  }
+  
+  // Check for obvious spam patterns
+  if (email.includes('test@test') || email.includes('fake')) {
+    return { ok: false, error: 'Enter a real email address.' }
   }
 
   if (input.photoPathnames.length === 0) {

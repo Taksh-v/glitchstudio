@@ -1,8 +1,22 @@
 import { put } from '@vercel/blob'
 import { type NextRequest, NextResponse } from 'next/server'
+import { validateUploadFile } from '@/lib/upload'
+import { rateLimit } from '@/lib/rate-limit'
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limit by IP
+    const ip =
+      request.headers.get('x-forwarded-for') ||
+      request.headers.get('x-real-ip') ||
+      'unknown'
+    if (!rateLimit(`upload:${ip}`, 20, 60 * 1000)) {
+      return NextResponse.json(
+        { error: 'Too many uploads. Try again in a minute.' },
+        { status: 429 },
+      )
+    }
+
     const formData = await request.formData()
     const file = formData.get('file') as File | null
 
@@ -10,23 +24,28 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 })
     }
 
-    if (!file.type.startsWith('image/')) {
-      return NextResponse.json(
-        { error: 'Only image files are accepted' },
-        { status: 400 },
-      )
+    // Validate file constraints
+    const validation = validateUploadFile(file)
+    if (!validation.ok) {
+      return NextResponse.json({ error: validation.error }, { status: 400 })
     }
 
-    const blob = await put(`uploads/${Date.now()}-${file.name}`, file, {
+    // Sanitize filename to prevent path traversal
+    const safeName = file.name
+      .replace(/[^a-zA-Z0-9._-]/g, '_')
+      .slice(0, 100)
+
+    const blob = await put(`uploads/${Date.now()}-${safeName}`, file, {
       access: 'private',
       addRandomSuffix: true,
     })
 
-    // Private store: never return blob.url to the client. The pathname is used
-    // later (server-side) to stream the file to the authed admin.
     return NextResponse.json({ pathname: blob.pathname })
   } catch (error) {
     console.error('[v0] Upload error:', error)
-    return NextResponse.json({ error: 'Upload failed' }, { status: 500 })
+    return NextResponse.json(
+      { error: 'Upload failed. Try again later.' },
+      { status: 500 },
+    )
   }
 }
