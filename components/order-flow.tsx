@@ -21,12 +21,12 @@ type Photo = {
 type Phase = 'build' | 'checkout' | 'done'
 
 const CHECKOUT_LINES = [
-  '> establishing secure tunnel...',
-  '> authorizing payment [PayPal Sandbox]...',
-  '> $$$ captured // no real money moved',
-  '> queuing image buffers...',
-  '> spinning up corruption engine...',
-  '> committing order to mainframe...',
+  '> securing your payment...',
+  '> processing through PayPal...',
+  '> ✓ Payment confirmed',
+  '> generating your glitch files...',
+  '> applying corruption effects...',
+  '> packaging your order...',
 ]
 
 export function OrderFlow() {
@@ -184,35 +184,48 @@ export function OrderFlow() {
       <div className="scanlines relative mx-auto max-w-xl overflow-hidden rounded-md border border-primary bg-card p-8 text-center shadow-[0_0_40px_-12px_var(--primary)]">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-24 animate-scan-sweep bg-gradient-to-b from-primary/25 to-transparent" />
         <p className="font-mono text-xs tracking-widest text-primary">
-          ✦ ORDER COMMITTED ✦
+          ✓ PAYMENT CONFIRMED
         </p>
         <h3 className="glitch-text mt-3 font-mono text-3xl font-bold tracking-tighter text-foreground">
-          INTO THE MACHINE
+          ORDER RECEIVED
         </h3>
-        <p className="mt-3 font-mono text-xs leading-relaxed text-muted-foreground">
-          Your {pkg.name} is queued for corruption. A confirmation is on its way
-          to{' '}
-          <span className="text-foreground">{email}</span>. Our operators start
-          glitching within 72 hours.
-        </p>
-
-        <div className="mx-auto mt-6 inline-flex flex-col items-center rounded-md border border-dashed border-primary bg-secondary px-6 py-4">
-          <span className="font-mono text-[10px] tracking-widest text-muted-foreground">
-            ORDER CODE
-          </span>
-          <span className="font-mono text-2xl font-bold tracking-widest text-primary text-glow">
-            {orderCode}
-          </span>
+        <div className="mt-4 space-y-3 rounded-lg bg-secondary/50 p-4 border border-primary/20">
+          <p className="font-mono text-sm text-foreground">
+            Your order code: <span className="font-bold text-primary">{orderCode}</span>
+          </p>
+          <p className="font-mono text-xs text-muted-foreground">
+            A download link is being sent to <span className="text-foreground">{email}</span>
+          </p>
+          <p className="font-mono text-xs text-muted-foreground">
+            Check your email for your files. They&apos;re ready to download immediately.
+          </p>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-8 space-y-3 border-t border-border pt-6">
+          <div className="font-mono text-xs text-foreground">
+            <p className="font-bold text-primary mb-2">What happens next:</p>
+            <ul className="space-y-1 text-muted-foreground">
+              <li>✓ Email confirmation sent with download link</li>
+              <li>✓ Download expires in 30 days (request a new link anytime)</li>
+              <li>✓ Use files commercially, on prints, merchandise, socials</li>
+              <li>✓ Not happy? Email us for a full refund within 30 days</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-6 flex gap-3">
           <Button
             onClick={reset}
-            variant="outline"
-            className="border-border bg-transparent font-mono text-xs tracking-widest hover:bg-secondary"
+            className="flex-1 font-mono text-sm font-bold tracking-wide"
           >
-            CORRUPT_ANOTHER →
+            Transform Another Photo
           </Button>
+          <a
+            href="/"
+            className="inline-flex items-center justify-center rounded-md border border-border bg-transparent px-4 py-2 font-mono text-sm font-bold tracking-wide hover:bg-secondary"
+          >
+            Home
+          </a>
         </div>
       </div>
     )
@@ -226,7 +239,7 @@ export function OrderFlow() {
         {/* package */}
         <div>
           <Label className="font-mono text-xs tracking-widest text-muted-foreground">
-            01 / PACKAGE
+            STEP 1: CHOOSE A PACKAGE
           </Label>
           <div className="mt-2 grid grid-cols-3 gap-2">
             {PACKAGES.map((p) => (
@@ -255,7 +268,7 @@ export function OrderFlow() {
         {/* upload */}
         <div>
           <Label className="font-mono text-xs tracking-widest text-muted-foreground">
-            02 / PHOTOS ({photos.length}/{pkg.maxPhotos})
+            STEP 2: UPLOAD YOUR PHOTOS ({photos.length}/{pkg.maxPhotos})
           </Label>
           <div
             onDragOver={(e) => {
@@ -340,7 +353,7 @@ export function OrderFlow() {
         {/* vibe */}
         <div>
           <Label className="font-mono text-xs tracking-widest text-muted-foreground">
-            03 / CORRUPTION VIBE
+            STEP 3: PICK YOUR GLITCH STYLE
           </Label>
           <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
             {VIBES.map((v) => (
@@ -386,36 +399,32 @@ export function OrderFlow() {
 
       {/* RIGHT: summary + checkout */}
       <div className="lg:sticky lg:top-20 lg:self-start">
-        <div className="scanlines space-y-4 rounded-md border border-border bg-card p-6">
+        <div className="space-y-4 rounded-md border border-primary/30 bg-card p-6">
           <h3 className="font-mono text-sm font-bold tracking-widest text-foreground">
-            ORDER_SUMMARY
+            YOUR ORDER
           </h3>
 
           <dl className="space-y-2 border-y border-border py-3 font-mono text-xs">
             <div className="flex justify-between">
-              <dt className="text-muted-foreground">PACKAGE</dt>
-              <dd className="text-foreground">{pkg.name}</dd>
+              <dt className="text-muted-foreground">Package</dt>
+              <dd className="text-primary font-bold">{pkg.name}</dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-muted-foreground">PHOTOS</dt>
+              <dt className="text-muted-foreground">Photos</dt>
               <dd className="text-foreground">
                 {photos.length} / {pkg.maxPhotos}
               </dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-muted-foreground">VIBE</dt>
-              <dd className="text-glitch-magenta">
+              <dt className="text-muted-foreground">Glitch Style</dt>
+              <dd className="text-glitch-magenta font-medium">
                 {VIBES.find((v) => v.id === vibe)?.label}
               </dd>
             </div>
-            <div className="flex justify-between">
-              <dt className="text-muted-foreground">SHIPPING</dt>
-              <dd className="text-primary">FREE</dd>
-            </div>
           </dl>
 
-          <div className="flex items-end justify-between">
-            <span className="font-mono text-xs text-muted-foreground">TOTAL</span>
+          <div className="flex items-baseline justify-between border-t border-border pt-3">
+            <span className="font-mono text-xs font-bold text-muted-foreground">TOTAL PRICE</span>
             <span className="font-mono text-3xl font-bold tracking-tighter text-foreground">
               ${pkg.price}
             </span>
@@ -426,7 +435,7 @@ export function OrderFlow() {
               htmlFor="email"
               className="font-mono text-[11px] tracking-widest text-muted-foreground"
             >
-              EMAIL FOR CONFIRMATION
+              STEP 4: YOUR EMAIL (WHERE WE SEND YOUR FILES)
             </Label>
             <Input
               id="email"
@@ -434,7 +443,7 @@ export function OrderFlow() {
               inputMode="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@inbox.exe"
+              placeholder="your@email.com"
               className="mt-1.5 border-border bg-secondary font-mono text-xs"
             />
           </div>
@@ -442,10 +451,10 @@ export function OrderFlow() {
           <Button
             onClick={runCheckout}
             disabled={!canCheckout}
-            className="w-full font-mono text-xs font-bold tracking-widest"
+            className="w-full font-mono text-sm font-bold tracking-widest"
             size="lg"
           >
-            PAY ${pkg.price} // CORRUPT IT
+            Pay ${(pkg.price / 100).toFixed(0)} with PayPal → Get Your Files
           </Button>
           <p className="text-center font-mono text-[10px] leading-relaxed text-muted-foreground">
             Simulated checkout — no real charge. Demo of the full PayPal flow.

@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { PACKAGES } from '@/lib/packages'
-import { Check } from 'lucide-react'
+import { Check, Shield } from 'lucide-react'
 
 export function Pricing() {
   function selectPackage(id: string) {
@@ -13,68 +13,96 @@ export function Pricing() {
   return (
     <section id="pricing" className="border-b border-border">
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
-        <div className="mb-10 flex items-end justify-between gap-4">
+        <div className="mb-3">
           <h2 className="font-mono text-2xl font-bold tracking-tighter sm:text-3xl">
-            PICK YOUR <span className="text-primary text-glow">PACKAGE</span>
+            Simple Pricing. No Hidden Fees.
           </h2>
-          <span className="hidden font-mono text-xs tracking-widest text-muted-foreground sm:block">
-            /// FREE SHIPPING
-          </span>
         </div>
+        <p className="mb-8 font-mono text-sm text-muted-foreground">
+          Choose a package, upload photos, get results instantly. 30-day money-back guarantee on all orders.
+        </p>
 
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-3">
           {PACKAGES.map((pkg) => (
             <div
               key={pkg.id}
-              className={`relative flex flex-col rounded-md border bg-card p-6 ${
+              className={`relative flex flex-col rounded-lg border-2 p-6 transition-all ${
                 pkg.featured
-                  ? 'border-primary shadow-[0_0_30px_-10px_var(--primary)]'
-                  : 'border-border'
+                  ? 'border-primary bg-card/50 shadow-[0_0_40px_-15px_var(--primary)] ring-1 ring-primary/20 md:scale-105'
+                  : 'border-border bg-card hover:border-primary/50'
               }`}
             >
               {pkg.featured && (
-                <span className="absolute -top-2.5 left-6 rounded-sm bg-primary px-2 py-0.5 font-mono text-[10px] font-bold tracking-widest text-primary-foreground">
-                  MOST CORRUPTED
-                </span>
+                <div className="mb-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 border border-primary/30">
+                  <span className="text-xs font-bold tracking-widest text-primary">⭐ BEST VALUE</span>
+                </div>
               )}
+
               <h3 className="font-mono text-lg font-bold tracking-tight text-foreground">
                 {pkg.name}
               </h3>
               <p className="mt-1 font-mono text-xs text-muted-foreground">
                 {pkg.tagline}
               </p>
-              <div className="mt-5 flex items-end gap-1">
-                <span className="font-mono text-4xl font-bold tracking-tighter text-foreground">
-                  ${pkg.price}
-                </span>
-                <span className="mb-1 font-mono text-xs text-muted-foreground">
-                  /order
-                </span>
+
+              {/* Price - Crystal Clear */}
+              <div className="mt-6 mb-6 flex items-baseline gap-1">
+                <span className="font-mono text-5xl font-bold text-primary">${(pkg.price / 100).toFixed(0)}</span>
+                <span className="font-mono text-sm text-muted-foreground">one-time</span>
               </div>
 
-              <ul className="mt-5 flex-1 space-y-2.5">
+              {/* Features - Plain Language */}
+              <ul className="mb-6 flex-1 space-y-3">
                 {pkg.features.map((f) => (
-                  <li
-                    key={f}
-                    className="flex items-start gap-2 font-mono text-xs text-muted-foreground"
-                  >
-                    <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
-                    {f}
+                  <li key={f} className="flex items-start gap-2.5">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    <span className="font-mono text-xs leading-relaxed text-foreground">{f}</span>
                   </li>
                 ))}
               </ul>
 
+              {/* Trust Badges */}
+              <div className="mb-6 space-y-2 border-t border-border/50 pt-4">
+                <div className="flex items-center gap-2 font-mono text-xs text-muted-foreground">
+                  <Shield className="h-3.5 w-3.5 text-primary" />
+                  30-day money-back guarantee
+                </div>
+                <div className="font-mono text-xs text-muted-foreground">
+                  ✓ Download instantly • ✓ Use commercially • ✓ Keep forever
+                </div>
+              </div>
+
+              {/* CTA - Super Clear */}
               <Button
                 onClick={() => selectPackage(pkg.id)}
                 variant={pkg.featured ? 'default' : 'outline'}
-                className={`mt-6 font-mono text-xs font-bold tracking-widest ${
-                  pkg.featured ? '' : 'border-border bg-transparent hover:bg-secondary'
+                size="lg"
+                className={`w-full font-mono text-sm font-bold tracking-wide ${
+                  pkg.featured ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'border-border bg-transparent hover:bg-secondary'
                 }`}
               >
-                SELECT_{pkg.id.toUpperCase()}
+                {pkg.featured ? 'Choose This (Best Value)' : 'Choose This'}
               </Button>
             </div>
           ))}
+        </div>
+
+        {/* Confidence Builder - Bottom Trust Section */}
+        <div className="mt-12 rounded-lg border border-border bg-card/30 p-6">
+          <div className="grid gap-6 md:grid-cols-3 text-center">
+            <div>
+              <div className="font-mono text-sm font-bold text-primary">✓ Instant Delivery</div>
+              <p className="mt-1 font-mono text-xs text-muted-foreground">Get your files immediately after purchase. No waiting.</p>
+            </div>
+            <div>
+              <div className="font-mono text-sm font-bold text-primary">✓ Hassle-Free Returns</div>
+              <p className="mt-1 font-mono text-xs text-muted-foreground">Not happy? Full refund within 30 days. No questions asked.</p>
+            </div>
+            <div>
+              <div className="font-mono text-sm font-bold text-primary">✓ Full Commercial Rights</div>
+              <p className="mt-1 font-mono text-xs text-muted-foreground">Use on merch, prints, social media, or anything else.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

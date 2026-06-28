@@ -11,48 +11,48 @@ export type GlitchPackage = {
 export const PACKAGES: GlitchPackage[] = [
   {
     id: 'single',
-    name: 'SINGLE_FRAME',
-    tagline: 'One photo. One corruption. Pure chaos.',
-    price: 1100, // $11.00 in cents for PayPal
+    name: 'Single Frame',
+    tagline: 'Perfect for trying it out',
+    price: 1000, // $10.00 in cents for PayPal
     maxPhotos: 1,
     features: [
-      '1 photo corrupted',
-      'Ultra high-res digital file (4K)',
-      '3 glitch effect variations',
-      'Instant download link',
-      '30-day refund guarantee',
+      'Transform 1 photo',
+      '4K quality download',
+      '3 different glitch styles included',
+      'Instant access (no waiting)',
+      'Keep forever',
+      'Use on prints, merch, social media',
     ],
   },
   {
     id: 'triptych',
-    name: 'TRIPTYCH.RAW',
-    tagline: 'Three frames, datamoshed into a series.',
-    price: 2800, // $28.00 in cents for PayPal
+    name: 'Triptych (Best Value)',
+    tagline: 'Most popular. Best bang for buck.',
+    price: 2700, // $27.00 in cents for PayPal
     maxPhotos: 3,
     featured: true,
     features: [
-      'Up to 3 photos corrupted',
-      'Ultra high-res digital files (4K)',
-      '6 glitch effect variations per frame',
-      'Matched color decay aesthetic',
-      'Instant download + archive',
-      '30-day refund guarantee',
+      'Transform up to 3 photos',
+      '4K quality downloads',
+      '6 different glitch styles per photo',
+      'All downloaded at once',
+      'Keep forever',
+      'Use on prints, merch, social media',
     ],
   },
   {
     id: 'archive',
-    name: 'FULL_ARCHIVE',
-    tagline: 'Dump your camera roll into the machine.',
-    price: 4900, // $49.00 in cents for PayPal
+    name: 'Full Archive',
+    tagline: 'For serious creators',
+    price: 4500, // $45.00 in cents for PayPal
     maxPhotos: 8,
     features: [
-      'Up to 8 photos corrupted',
-      'Ultra high-res digital files (4K)',
-      'Unlimited glitch variations',
-      'Custom corruption brief (email)',
-      'Priority processing (24 hours)',
-      'Lifetime access to all files',
-      '30-day refund guarantee',
+      'Transform up to 8 photos',
+      '4K quality downloads',
+      'Unlimited glitch styles per photo',
+      'Email us custom requests',
+      'Priority processing',
+      'Keep forever + lifetime re-downloads',
     ],
   },
 ]
