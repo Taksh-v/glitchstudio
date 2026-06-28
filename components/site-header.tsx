@@ -34,6 +34,7 @@ export function SiteHeader() {
 
         <Button
           render={<a href="#order">START_UPLOAD</a>}
+          nativeButton={false}
           size="sm"
           className="font-mono text-xs font-bold tracking-widest"
         />

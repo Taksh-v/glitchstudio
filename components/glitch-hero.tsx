@@ -32,11 +32,13 @@ export function GlitchHero() {
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button
               render={<a href="#order">UPLOAD A PHOTO →</a>}
+              nativeButton={false}
               size="lg"
               className="font-mono text-sm font-bold tracking-widest"
             />
             <Button
               render={<a href="#gallery">SEE THE DAMAGE</a>}
+              nativeButton={false}
               size="lg"
               variant="outline"
               className="border-border bg-transparent font-mono text-sm tracking-widest hover:bg-secondary"
