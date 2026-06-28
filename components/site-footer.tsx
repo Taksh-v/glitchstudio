@@ -31,10 +31,19 @@ export function SiteFooter() {
               </ul>
             </div>
             <div>
+              <h4 className="mb-3 tracking-widest text-foreground">LEGAL</h4>
+              <ul className="space-y-2 text-muted-foreground">
+                <li><a href="/legal/terms" className="hover:text-primary">Terms</a></li>
+                <li><a href="/legal/privacy" className="hover:text-primary">Privacy</a></li>
+                <li><a href="/legal/refunds" className="hover:text-primary">Refunds</a></li>
+                <li><a href="/faq" className="hover:text-primary">FAQ</a></li>
+              </ul>
+            </div>
+            <div>
               <h4 className="mb-3 tracking-widest text-foreground">SIGNAL</h4>
               <ul className="space-y-2 text-muted-foreground">
-                <li>hello@glitch.studio</li>
-                <li>@glitchstudio</li>
+                <li><a href="/contact" className="hover:text-primary">Contact</a></li>
+                <li><a href="mailto:support@glitchstudio.com" className="hover:text-primary">support@glitchstudio.com</a></li>
               </ul>
             </div>
           </div>

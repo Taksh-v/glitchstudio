@@ -9,11 +9,19 @@ export const orders = pgTable("orders", {
   email: text("email").notNull(),
   packageId: text("package_id").notNull(),
   packageName: text("package_name").notNull(),
-  price: integer("price").notNull(),
+  price: integer("price").notNull(), // in cents
   vibe: text("vibe").notNull(),
   notes: text("notes"),
   photoUrls: jsonb("photo_urls").notNull().default([]).$type<string[]>(),
-  status: text("status").notNull().default("new"),
+  // Payment tracking
+  paymentStatus: text("payment_status").notNull().default("pending"), // pending, completed, failed, refunded
+  paypalOrderId: text("paypal_order_id"),
+  paypalTransactionId: text("paypal_transaction_id"),
+  paidAt: timestamp("paid_at", { withTimezone: true }),
+  // Fulfillment
+  status: text("status").notNull().default("new"), // new, processing, completed
+  downloadToken: text("download_token").unique(), // Token for accessing download link
+  downloadExpiresAt: timestamp("download_expires_at", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 })
 
