@@ -85,7 +85,7 @@ export function AdminStats() {
               >
                 <span className="text-muted-foreground">{pkg.name}</span>
                 <span className="text-foreground">
-                  {pkg.count} orders • ${pkg.revenue ?? 0}
+                  {pkg.count} orders • ${((pkg.revenue ?? 0) / 100).toFixed(2)}
                 </span>
               </div>
             ))}

@@ -92,7 +92,7 @@ export function AdminDashboard({ orders }: { orders: Order[] }) {
                       {order.packageName}
                     </div>
                     <div className="font-mono text-xs text-primary">
-                      ${order.price} · {order.vibe}
+                      ${(order.price / 100).toFixed(2)} · {order.vibe}
                     </div>
                   </div>
                 </div>

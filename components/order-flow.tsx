@@ -256,7 +256,7 @@ export function OrderFlow() {
                 <div className="font-mono text-[11px] font-bold tracking-tight text-foreground">
                   {p.name}
                 </div>
-                <div className="font-mono text-xs text-primary">${p.price}</div>
+                <div className="font-mono text-xs text-primary">${(p.price / 100).toFixed(2)}</div>
                 <div className="mt-1 font-mono text-[10px] text-muted-foreground">
                   ≤{p.maxPhotos} photo{p.maxPhotos > 1 ? 's' : ''}
                 </div>
@@ -425,8 +425,8 @@ export function OrderFlow() {
 
           <div className="flex items-baseline justify-between border-t border-border pt-3">
             <span className="font-mono text-xs font-bold text-muted-foreground">TOTAL PRICE</span>
-            <span className="font-mono text-3xl font-bold tracking-tighter text-foreground">
-              ${pkg.price}
+            <span className="font-mono text-3xl font-bold tracking-tighter text-primary">
+              ${(pkg.price / 100).toFixed(2)}
             </span>
           </div>
 
@@ -454,11 +454,8 @@ export function OrderFlow() {
             className="w-full font-mono text-sm font-bold tracking-widest"
             size="lg"
           >
-            Pay ${(pkg.price / 100).toFixed(0)} with PayPal → Get Your Files
+            Pay ${(pkg.price / 100).toFixed(2)} with PayPal → Get Your Files
           </Button>
-          <p className="text-center font-mono text-[10px] leading-relaxed text-muted-foreground">
-            Simulated checkout — no real charge. Demo of the full PayPal flow.
-          </p>
         </div>
       </div>
     </div>
