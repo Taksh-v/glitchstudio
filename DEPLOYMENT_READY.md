@@ -208,12 +208,12 @@ VERCEL_URL=https://yourdomain.com
 ## Pricing & Revenue
 
 **Customer Pricing:**
-- Single Frame: **$11.00**
-- Triptych.Raw: **$28.00**
-- Full Archive: **$49.00**
+- Single Frame: **$10.00**
+- Triptych (Best Value): **$27.00**
+- Full Archive: **$45.00**
 
 **Payment Fees:**
-- PayPal: ~3.5% (ex: $11 order = $0.39 fee, you get $10.61)
+- PayPal: ~2.9% (ex: $27 order = $0.78 fee, you get $26.22)
 - Vercel hosting: ~$5-20/month (depending on traffic)
 - Resend emails: Free up to 100/day, then $0.20 per 1000
 

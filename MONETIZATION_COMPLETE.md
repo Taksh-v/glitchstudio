@@ -34,14 +34,14 @@ A complete, monetized Y2K glitch art e-commerce platform with:
 
 | Package | Price | Max Photos | Margin/Sale |
 |---------|-------|-----------|------------|
-| **Single Frame** | $11.00 | 1 | ~$10.21 |
-| **Triptych.Raw** | $28.00 | 3 | ~$26.62 |
-| **Full Archive** | $49.00 | 8 | ~$46.92 |
+| **Single Frame** | $10.00 | 1 | ~$9.65 |
+| **Triptych (Best Value)** | $27.00 | 3 | ~$26.06 |
+| **Full Archive** | $45.00 | 8 | ~$43.43 |
 
 **Why this pricing works:**
-- Low entry point ($11) for first-time customers
-- Main revenue from Triptych tier ($28)
-- Premium tier ($49) for power users
+- Low entry point ($10) for first-time customers
+- Main revenue from Triptych tier ($27)
+- Premium tier ($45) for power users
 - 30-40% below market rate = competitive + accessible
 - ~3.5% PayPal fees already factored in
 
@@ -187,8 +187,8 @@ Before going live:
 ## Revenue Potential
 
 **Conservative estimate (first month):**
-- 5 orders/week at $28 average
-- 20 orders/month × $26.62 margin = **$532.40/month**
+- 5 orders/week at $27 average
+- 20 orders/month × $26.06 margin = **$521.20/month**
 - Minus hosting (~$15) = **~$517/month net**
 
 **Realistic target (3-6 months):**
@@ -260,7 +260,7 @@ Track these KPIs weekly:
 - ✓ Admin tools (order tracking + analytics)
 - ✓ Production security (rate limiting, CSP, HTTPS)
 
-**Would I pay $11-49 for this as a customer?**
+**Would I pay $10-45 for this as a customer?**
 
 Yes, if I wanted glitch art. The pricing is fair, the UX is smooth, and the guarantee removes risk. The vibes are creative, the delivery is instant, and there are no hidden costs.
 

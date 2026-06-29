@@ -10,7 +10,7 @@ const FAQS = [
   },
   {
     q: 'How much does it cost?',
-    a: 'Single Frame: $11 (1 photo), Triptych.Raw: $28 (up to 3 photos), Full Archive: $49 (up to 8 photos). All prices are one-time, no hidden fees or subscriptions.',
+    a: 'Single Frame: $10 (1 photo), Triptych (Best Value): $27 (up to 3 photos), Full Archive: $45 (up to 8 photos). All prices are one-time, no hidden fees or subscriptions.',
   },
   {
     q: 'What file formats do I get?',

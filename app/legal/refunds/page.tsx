@@ -91,7 +91,7 @@ export default function RefundsPage() {
           </ul>
           <p className="mt-2">
             We provide previews before purchase to help you decide. If you're unsure, start with
-            Single Frame ($11) to test the service risk-free.
+            Single Frame ($10) to test the service risk-free.
           </p>
         </section>
 
