@@ -3,6 +3,7 @@ import { GlitchHero } from '@/components/glitch-hero'
 import { MarqueeStrip } from '@/components/marquee-strip'
 import { HowItWorks } from '@/components/how-it-works'
 import { Gallery } from '@/components/gallery'
+import { Testimonials } from '@/components/testimonials'
 import { Pricing } from '@/components/pricing'
 import { OrderSection } from '@/components/order-section'
 import { SiteFooter } from '@/components/site-footer'
@@ -16,6 +17,7 @@ export default function Page() {
       <MarqueeStrip />
       <HowItWorks />
       <Gallery />
+      <Testimonials />
       <Pricing />
       <OrderSection />
       <SiteFooter />
