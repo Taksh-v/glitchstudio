@@ -330,3 +330,127 @@ async function sendAdminPaymentNotification(data: {
     ].join('\n'),
   })
 }
+
+/**
+ * Process a refund for a completed order.
+ * Reverses the PayPal capture and updates order status.
+ */
+export async function refundOrder(input: {
+  orderCode: string
+  reason?: string
+}) {
+  try {
+    // Fetch order from database
+    const order = await db
+      .select()
+      .from(orders)
+      .where(eq(orders.orderCode, input.orderCode))
+
+    if (!order.length) {
+      return { ok: false, error: 'Order not found.' }
+    }
+
+    const o = order[0]
+
+    if (o.paymentStatus !== 'completed') {
+      return { ok: false, error: 'Only completed payments can be refunded.' }
+    }
+
+    if (!o.paypalTransactionId) {
+      return { ok: false, error: 'No PayPal transaction found for this order.' }
+    }
+
+    // Attempt to refund via PayPal
+    const baseUrl = PAYPAL_API_BASE[PAYPAL_MODE as keyof typeof PAYPAL_API_BASE]
+    const auth = Buffer.from(
+      `${PAYPAL_CLIENT_ID}:${PAYPAL_CLIENT_SECRET}`,
+    ).toString('base64')
+
+    // Get access token
+    const tokenRes = await fetch(`${baseUrl}/v1/oauth2/token`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${auth}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: 'grant_type=client_credentials',
+    })
+
+    if (!tokenRes.ok) {
+      console.error('[v0] PayPal refund token error:', tokenRes.status)
+      return { ok: false, error: 'Refund processing failed. Try again.' }
+    }
+
+    const { access_token } = await tokenRes.json()
+
+    // Submit refund request
+    const refundRes = await fetch(
+      `${baseUrl}/v2/payments/captures/${o.paypalTransactionId}/refund`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: {
+            currency_code: 'USD',
+            value: (o.price / 100).toFixed(2),
+          },
+          note_to_payer: input.reason || 'Customer requested refund',
+        }),
+      },
+    )
+
+    if (!refundRes.ok) {
+      const error = await refundRes.text()
+      console.error('[v0] PayPal refund error:', refundRes.status, error)
+      return { ok: false, error: 'Refund failed. Check order details.' }
+    }
+
+    const refundData = await refundRes.json()
+
+    // Update order status
+    await db
+      .update(orders)
+      .set({
+        paymentStatus: 'refunded',
+      })
+      .where(eq(orders.orderCode, input.orderCode))
+
+    // Send refund notification to customer
+    const apiKey = process.env.RESEND_API_KEY
+    if (apiKey) {
+      const { Resend } = await import('resend')
+      const resend = new Resend(apiKey)
+      void resend.emails.send({
+        from: 'GlitchStudio <onboarding@resend.dev>',
+        to: o.email,
+        subject: `Refund Processed // Order ${input.orderCode}`,
+        text: [
+          `Your refund has been processed!`,
+          ``,
+          `Order Code: ${input.orderCode}`,
+          `Amount:     $${(o.price / 100).toFixed(2)}`,
+          `Status:     REFUNDED`,
+          ``,
+          `The amount will appear back in your PayPal account within 3-5 business days.`,
+          ``,
+          `If you have any questions, reply to this email.`,
+          ``,
+          `Thanks for trying GlitchStudio!`,
+          `Team`,
+        ].join('\n'),
+      })
+    }
+
+    return {
+      ok: true,
+      message: 'Refund processed. Customer notified.',
+      refundId: refundData.id,
+    }
+  } catch (error) {
+    console.error('[v0] Refund error:', error)
+    return { ok: false, error: 'Refund processing failed. Try again.' }
+  }
+}
